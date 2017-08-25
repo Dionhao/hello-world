@@ -1,38 +1,51 @@
-## Welcome to GitHub Pages
-我想看看，看看我的个人页面出现了没！
-
-You can use the [editor on GitHub](https://github.com/Dionhao/hello-world/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
-
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
-
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/Dionhao/hello-world/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>gg</title>
+    <script type="text/javascript" src="jquery-1.4.4.min.js"></script>
+  </head>
+  
+  <body class="easyui-layout">
+		<div id="autotype">
+		    <p>two_step_auth_command.bui</p>
+		    <br>
+		    <p>for agent 54348</p>
+		    <p>中文文字测试测试</p>
+		</div>
+		<script>
+		    $.fn.autotype = function() {
+		      var timer=null;
+		      var _this=$(this);
+		      var str=_this.html();
+		      // 正则替换代码行之间添加的多个空格，不去除换行输出会有明显的停顿：实际是在输出多个空格
+		      str=str.replace(/(\s){2,}/g,"$1");
+		      console.log("str"+str);
+		        var index = 0;
+		        $(this).html('');
+		        var printer = function() {
+		            var args=arguments;
+		            var current = str.slice(index, index+1);
+		            // html标签完整输出,如：<p>
+		            if (current == '<'){
+		                index = str.indexOf('>', index) + 1;
+		            }
+		            else{
+		            index++;
+		            }
+		           timer= setTimeout(args.callee,70);
+		            //位运算符: 根据setInterval运行奇偶次来判断是否加入下划线字符“_”，使输入效果更逼真
+		            if (index < str.length-1){ //打印字符倒数第2个字符开始，不加下划线字符，以防止结束符可能会多输出一下划线字符
+		                _this.html(str.substring(0, index) + (index & 1 ? '_' : ''));
+		            }else{
+		                _this.html(str.substring(0, index));
+		                clearTimeout(timer);
+		            };
+		        };
+		        // 延迟1s开始
+		        setTimeout(printer,1000);
+		    };
+		    $("#autotype").autotype();
+		</script>
+  
+  </body>
+</html>
